@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0B0E10;
+  --color-surface: #141A1F;
+  --color-surface-alt: #1C2329;
+  --color-border: #2A3540;
+  --color-border-strong: #3D5060;
+  --color-text: #DDD6C4;
+  --color-text-muted: #8A8275;
+  --color-accent: #C8922A;
+  --color-accent-dim: #7A5519;
+  --color-success: #4E8A49;
+  --color-success-dim: #2A4E27;
+  --color-danger: #8C3A32;
+  --color-danger-dim: #4E1F1A;
+  --color-info: #3D607A;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Barlow Condensed', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+  );
+  z-index: 9999;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent-dim); }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes scanDrift {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100vh); }
+}
+
+.animate-fade-in { animation: fadeSlideIn 0.25s ease both; }
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.10s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.20s; }
+
+.shimmer-bar {
+  background: linear-gradient(90deg, var(--color-success) 0%, #7ec87a 45%, var(--color-success) 100%);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+.shimmer-accent {
+  background: linear-gradient(90deg, var(--color-accent) 0%, #e8b84a 45%, var(--color-accent) 100%);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 12px;
+}
+.card-plain {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+.card-alt {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.field-input {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  padding: 0.4rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.field-input:focus { border-color: var(--color-accent); }
+.field-input::placeholder { color: var(--color-text-muted); }
+
+.btn {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn:not(:disabled):hover { opacity: 0.85; }
+.btn-accent  { background: var(--color-accent);  color: #0B0E10; }
+.btn-success { background: var(--color-success); color: #fff; }
+.btn-danger  { background: var(--color-danger);  color: #fff; }
+.btn-ghost   { background: var(--color-surface-alt); color: var(--color-text); border: 1px solid var(--color-border); }
+
+.badge {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.badge-accent  { background: rgba(200,146,42,0.15); color: var(--color-accent); }
+.badge-success { background: rgba(78,138,73,0.18);  color: var(--color-success); }
+.badge-danger  { background: rgba(140,58,50,0.2);   color: #c25b52; }
+.badge-muted   { background: var(--color-surface-alt); color: var(--color-text-muted); }
+
+.progress-track { background: var(--color-surface-alt); border-radius: 999px; overflow: hidden; }
+.progress-fill  { height: 100%; border-radius: 999px; transition: width 0.3s ease; }
